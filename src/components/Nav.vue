@@ -9,7 +9,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <router-link class="navbar-item is-tab" :to="{ name: 'Something' }">
+      <router-link class="navbar-item is-tab" :to="{ name: 'Play' }">
         Play
       </router-link>
       <router-link class="navbar-item is-tab" :to="{ name: 'About' }">
