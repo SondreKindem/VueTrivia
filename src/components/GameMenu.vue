@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <section>
-      Yeet!
       <b-field label="Category">
         <b-select placeholder="Choose category">
           <option>Any category</option>
