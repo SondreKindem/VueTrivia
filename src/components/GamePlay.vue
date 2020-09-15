@@ -1,21 +1,13 @@
 <template>
   <section>
     <b-steps v-model="activeStep">
-      <b-step-item v-for="(question, index) in questions" :key="index" :step="index + 1" :label="'question ' + (index+1)">
+      <hr style="margin-top: 0;"/>
+      <b-step-item v-for="(question, index) in questions" :key="index" :step="index + 1">
         <Question :question="question"></Question>
       </b-step-item>
       <template
           slot="navigation"
           slot-scope="{previous, next}">
-        <b-button
-            outlined
-            type="is-danger"
-            icon-pack="mdi"
-            icon-left="backward"
-            :disabled="previous.disabled"
-            @click.prevent="previous.action">
-          Previous
-        </b-button>
         <b-button
             outlined
             type="is-success"
@@ -44,8 +36,8 @@ export default {
       activeStep: 0,
     }
   },
-  mounted() {
-    fetch(`https://opentdb.com/api.php?amount=10&category=${this.settings.selectedCategory}&difficulty=${this.settings.selectedDifficulty}`)
+  created() {
+    fetch(`https://opentdb.com/api.php?encode=url3986&amount=10&category=${this.settings.selectedCategory}&difficulty=${this.settings.selectedDifficulty}`)
         .then(response => response.json())
         .then(data => {
           this.questions = data.results;
@@ -55,5 +47,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
