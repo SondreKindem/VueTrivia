@@ -1,7 +1,9 @@
 <template>
   <section>
     <b-steps v-model="activeStep">
-      <b-step-item v-for="(question, index) in questions" :key="index" :step="index + 1" :label="'question ' + (index+1)">{{question.question}}</b-step-item>
+      <b-step-item v-for="(question, index) in questions" :key="index" :step="index + 1" :label="'question ' + (index+1)">
+        <Question :question="question"></Question>
+      </b-step-item>
       <template
           slot="navigation"
           slot-scope="{previous, next}">
@@ -29,18 +31,25 @@
 </template>
 
 <script>
+import Question from "@/components/Question";
 export default {
   name: "GamePlay",
+  components: {Question},
+  props: {
+    settings: Object
+  },
   data() {
     return {
       questions: [],
       activeStep: 0,
     }
   },
-  created() {
-    fetch("https://opentdb.com/api.php?amount=10&category=20")
+  mounted() {
+    fetch(`https://opentdb.com/api.php?amount=10&category=${this.settings.selectedCategory}&difficulty=${this.settings.selectedDifficulty}`)
         .then(response => response.json())
-        .then(data => this.questions = data.results);
+        .then(data => {
+          this.questions = data.results;
+        });
   }
 }
 </script>
