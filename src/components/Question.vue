@@ -1,8 +1,19 @@
 <template>
   <div class="question-wrap">
-    <p>{{ question.question }}</p>
-    <b-field horizontal>
-      <b-radio-button v-for="answer in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">{{answer}}</b-radio-button>
+    <div class="message">
+      <div class="message-body">
+        <p class="title">{{ decodeURIComponent(question.question) }}</p>
+      </div>
+      <b-field grouped class="answers-wrap">
+        <b-radio-button expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
+          <b-icon type="is-primary" :icon="'numeric-' + (index + 1) +'-circle-outline'"></b-icon>
+          <span>{{decodeURIComponent(answer)}}</span>
+        </b-radio-button>
+      </b-field>
+    </div>
+
+    <b-field>
+      <b-button type="is-primary is-medium" icon-left="check">Submit answer</b-button>
     </b-field>
   </div>
 </template>
