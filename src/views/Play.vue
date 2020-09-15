@@ -1,7 +1,7 @@
 <template>
   <div id="play" class="play container mt-6">
-    <GameMenu v-if="!gameStarted" :categories="categories" v-on:play="startGame"></GameMenu>
-    <GamePlay v-if="gameStarted"></GamePlay>
+    <GamePlay v-if="gameStarted" :settings="settings"></GamePlay>
+    <GameMenu v-else :categories="categories" v-on:play="startGame"></GameMenu>
   </div>
 </template>
 
