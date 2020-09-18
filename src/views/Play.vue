@@ -15,7 +15,10 @@ export default {
   data(){
     return{
       gameStarted: false,
-      settings: null,
+      settings: {
+        selectedCategory: 0,
+        selectedDifficulty: 0,
+      },
       categories: []
     }
   },
@@ -26,7 +29,7 @@ export default {
       this.gameStarted = true;
     }
   },
-  created() {
+  mounted() {
     fetch("https://opentdb.com/api_category.php")
         .then(response => response.json())
         .then(data => this.categories = data.trivia_categories);
