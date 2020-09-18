@@ -2,12 +2,12 @@
   <div class="question-wrap">
     <div class="message">
       <div class="message-body">
-        <p class="title">{{ decodeURIComponent(question.question) }}</p>
+        <p class="title" v-html="question.question"></p>
       </div>
       <b-field grouped class="answers-wrap">
         <b-radio-button expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
           <b-icon type="is-primary" :icon="'numeric-' + (index + 1) +'-circle-outline'"></b-icon>
-          <span>{{decodeURIComponent(answer)}}</span>
+          <span v-html="answer"></span>
         </b-radio-button>
       </b-field>
     </div>

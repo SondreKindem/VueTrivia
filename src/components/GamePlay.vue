@@ -37,7 +37,7 @@ export default {
     }
   },
   created() {
-    fetch(`https://opentdb.com/api.php?encode=url3986&amount=10&category=${this.settings.selectedCategory}&difficulty=${this.settings.selectedDifficulty}`)
+    fetch(`https://opentdb.com/api.php?amount=10&category=${this.settings.selectedCategory}&difficulty=${this.settings.selectedDifficulty}`)
         .then(response => response.json())
         .then(data => {
           this.questions = data.results;
