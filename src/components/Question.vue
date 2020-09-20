@@ -1,6 +1,6 @@
 <template>
   <div class="question-wrap">
-    <div class="message">
+    <div class="message is-expanded" style="width: 100%">
       <b-progress class="mb-0" :type="submitted ? '' : 'is-danger'" size="is-small" :value="timeRemaining"></b-progress>
       <div class="message-body">
         <p class="title" v-html="question.question"></p>
