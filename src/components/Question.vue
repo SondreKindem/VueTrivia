@@ -1,7 +1,7 @@
 <template>
   <div class="question-wrap">
     <div class="message">
-      <b-progress size="is-small" :value="timeRemaining"></b-progress>
+      <b-progress class="mb-0" :type="submitted ? '' : 'is-danger'" size="is-small" :value="timeRemaining"></b-progress>
       <div class="message-body">
         <p class="title" v-html="question.question"></p>
       </div>
@@ -50,7 +50,8 @@ export default {
     submitAnswer(){
       if(this.selectedAnswer){
         this.submitted = true;
-        this.$emit("submit", this.selectedAnswer === this.question.correct_answer);
+        clearInterval(this.intervalObj);  // stop the timer
+        this.$emit("submit", {correct: this.selectedAnswer === this.question.correct_answer, remaining: this.timeRemaining});
       }
     }
   },
