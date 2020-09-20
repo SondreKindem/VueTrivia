@@ -25,6 +25,7 @@ export default {
   props: {
     question: Object
   },
+
   data() {
     return {
       selectedAnswer: null,
@@ -33,6 +34,7 @@ export default {
       timeRemaining: 100.0
     }
   },
+
   computed: {
     answers(){
       const answers = this.question.incorrect_answers;
@@ -43,6 +45,7 @@ export default {
       return shuffle(answers);
     }
   },
+
   methods: {
     submitAnswer(){
       if(this.selectedAnswer){
@@ -51,6 +54,7 @@ export default {
       }
     }
   },
+
   created() {
     this.timeRemaining = 100;
     this.intervalObj = setInterval(() => {
