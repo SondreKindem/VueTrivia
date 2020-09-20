@@ -6,7 +6,7 @@
         <p class="title" v-html="question.question"></p>
       </div>
       <b-field grouped class="answers-wrap">
-        <b-radio-button :class="{}" :disabled="submitted" expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
+        <b-radio-button class="answer is-warning" :type="submitted && selectedAnswer === answer ? (answer === question.correct_answer ? 'is-success' : 'is-danger') : 'is-primary'" :disabled="submitted" expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
           <b-icon type="is-primary" :icon="'numeric-' + (index + 1) +'-circle-outline'"></b-icon>
           <span v-html="answer"></span>
         </b-radio-button>
@@ -82,11 +82,14 @@ function shuffle(a) {
 }
 </script>
 
-<style scoped>
+<style>
   .question-wrap{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .answer > label{
+    opacity: 1 !important;
   }
 </style>
