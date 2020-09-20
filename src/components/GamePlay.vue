@@ -1,6 +1,6 @@
 <template>
   <section>
-      <b-tag type="is-dark is-medium" class="mb-4">Points: {{Math.round(points)}} ({{numCorrectAnswers}}/{{activeStep+1}})</b-tag>
+      <b-tag type="is-dark is-medium" class="mb-4">Points: {{Math.floor(points)}} ({{numCorrectAnswers}}/{{activeStep+1}})</b-tag>
     <b-steps v-model="activeStep">
       <hr style="margin-top: 0;"/>
       <b-step-item v-for="(question, index) in questions" :key="index" :step="index + 1">
