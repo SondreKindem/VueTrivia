@@ -8,14 +8,15 @@
       </b-step-item>
       <template
           slot="navigation"
-          slot-scope="{previous, next}">
+          slot-scope="{}">
         <b-button
+            v-show="currentAnswered"
             outlined
             type="is-success"
             icon-pack="mdi"
             icon-right="forward"
-            :disabled="next.disabled"
-            @click.prevent="next.action">
+            :disabled="!currentAnswered"
+            @click.prevent="nextQuestion">
           Next
         </b-button>
       </template>
@@ -35,6 +36,17 @@ export default {
     return {
       questions: [],
       activeStep: 0,
+      currentAnswered: false,
+    }
+  },
+  methods: {
+    nextQuestion(){
+      this.activeStep++;
+      this.currentAnswered = false;
+    },
+    questionAnswered(result){
+      this.currentAnswered = true;
+      console.log(result);
     }
   },
   created() {
