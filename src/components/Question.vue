@@ -1,11 +1,12 @@
 <template>
   <div class="question-wrap">
     <div class="message">
+      <b-progress size="is-small" :value="timeRemaining"></b-progress>
       <div class="message-body">
         <p class="title" v-html="question.question"></p>
       </div>
       <b-field grouped class="answers-wrap">
-        <b-radio-button expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
+        <b-radio-button :class="{}" :disabled="submitted" expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
           <b-icon type="is-primary" :icon="'numeric-' + (index + 1) +'-circle-outline'"></b-icon>
           <span v-html="answer"></span>
         </b-radio-button>
@@ -13,7 +14,7 @@
     </div>
 
     <b-field>
-      <b-button type="is-primary is-medium" icon-left="check">Submit answer</b-button>
+      <b-button :disabled="submitted" type="is-primary is-medium" icon-left="check" @click="submitAnswer">Submit answer</b-button>
     </b-field>
   </div>
 </template>
@@ -27,6 +28,9 @@ export default {
   data() {
     return {
       selectedAnswer: null,
+      submitted: false,
+      intervalObj: null,
+      timeRemaining: 100.0
     }
   },
   computed: {
@@ -39,7 +43,23 @@ export default {
       return shuffle(answers);
     }
   },
+  methods: {
+    submitAnswer(){
+      if(this.selectedAnswer){
+        this.submitted = true;
+        this.$emit("submit", this.selectedAnswer === this.question.correct_answer);
+      }
+    }
+  },
   created() {
+    this.timeRemaining = 100;
+    this.intervalObj = setInterval(() => {
+      if(this.timeRemaining > 0){
+        this.timeRemaining -= 0.25;
+      } else{
+        clearInterval(this.intervalObj);
+      }
+    }, 10)
   }
 }
 
