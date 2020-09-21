@@ -1,6 +1,6 @@
 <template>
   <section>
-      <b-tag type="is-dark is-medium" class="mb-4">Points: {{Math.floor(points)}} ({{numCorrectAnswers}}/{{activeStep+1}})</b-tag>
+    <b-tag type="is-dark is-medium" class="mb-4">Points: {{Math.floor(points)}} ({{numCorrectAnswers}}/{{activeStep+1}})</b-tag>
     <b-steps v-model="activeStep">
       <hr style="margin-top: 0;"/>
       <b-step-item :clickable="false" v-for="(question, index) in questions" :key="index" :step="index + 1">
@@ -22,14 +22,16 @@
         </b-button>
       </template>
     </b-steps>
+    <GameResults @restart="$emit('restart')" v-if="finished" :num-of-correct="numCorrectAnswers" :answer-times="answerTimes" :points="Math.floor(points)" ></GameResults>
   </section>
 </template>
 
 <script>
 import Question from "@/components/Question";
+import GameResults from "@/components/GameResults";
 export default {
   name: "GamePlay",
-  components: {Question},
+  components: {GameResults, Question},
   props: {
     settings: Object
   },
@@ -39,11 +41,16 @@ export default {
       activeStep: 0,
       currentAnswered: false,
       points: 0,
-      numCorrectAnswers: 0
+      numCorrectAnswers: 0,
+      answerTimes: [],  // holds time to answer for each question
+      finished: false
     }
   },
   methods: {
     nextQuestion(){
+      if(this.activeStep >= this.questions.length - 1){
+        this.finished = true;
+      }
       this.activeStep++;
       this.currentAnswered = false;
     },
@@ -52,6 +59,7 @@ export default {
         this.numCorrectAnswers++;
         this.points += 100 + result.remaining;
       }
+      this.answerTimes.push(result.remaining);
       this.currentAnswered = true;
       console.log(result);
     }
