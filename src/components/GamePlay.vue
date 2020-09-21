@@ -61,7 +61,6 @@ export default {
       }
       this.answerTimes.push(result.remaining);
       this.currentAnswered = true;
-      console.log(result);
     }
   },
   created() {

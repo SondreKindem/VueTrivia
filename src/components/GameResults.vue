@@ -51,7 +51,6 @@ export default {
       if(this.name && this.name.trim()){
         this.leaderboard.push({"name": this.name, "points": this.points});
         localStorage.setItem("leaderboard", JSON.stringify(this.leaderboard));
-        console.log("save?")
       }
     }
   },

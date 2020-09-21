@@ -29,7 +29,6 @@ export default {
       this.gameStarted = true;
     },
     restart(){
-      console.log("ok")
       this.gameStarted = false;
     }
   },
