@@ -9,17 +9,12 @@
       <router-link class="navbar-item is-tab" :to="{ name: 'Play' }">
         Play
       </router-link>
-      <router-link class="navbar-item is-tab" :to="{ name: 'About' }">
-        Help
+      <router-link class="navbar-item is-tab" :to="{ name: 'Leaderboard' }">
+        Leaderboard
       </router-link>
-      <b-navbar-dropdown label="Info">
-        <b-navbar-item href="#">
-          About
-        </b-navbar-item>
-        <b-navbar-item href="#">
-          Contact
-        </b-navbar-item>
-      </b-navbar-dropdown>
+      <router-link class="navbar-item is-tab" :to="{ name: 'About' }">
+        About
+      </router-link>
     </template>
 
     <template slot="end">
