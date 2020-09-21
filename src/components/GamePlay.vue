@@ -15,7 +15,7 @@
           <b-button
               v-show="currentAnswered"
               outlined
-              type="is-success"
+              type="is-success is-medium"
               icon-pack="mdi"
               icon-right="forward"
               :disabled="!currentAnswered"
