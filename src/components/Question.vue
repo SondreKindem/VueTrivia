@@ -6,10 +6,19 @@
         <p class="title" v-html="question.question"></p>
       </div>
       <b-field grouped group-multiline class="answers-wrap">
-        <b-radio-button class="answer is-warning" :type="submitted && selectedAnswer === answer ? (answer === question.correct_answer ? 'is-success' : 'is-danger') : 'is-primary'" :disabled="submitted" expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
+
+        <b-radio-button
+            class="answer is-warning"
+            :class="{'correct': submitted && answer === question.correct_answer}"
+            :type="submitted && selectedAnswer === answer ? (answer === question.correct_answer ? 'is-success' : 'is-danger') : 'is-primary'"
+            :disabled="submitted" expanded v-for="(answer, index) in answers"
+            v-model="selectedAnswer"
+            :native-value="answer"
+            :key="answer">
           <b-icon type="is-primary" :icon="'numeric-' + (index + 1) +'-circle-outline'"></b-icon>
           <span v-html="answer"></span>
         </b-radio-button>
+
       </b-field>
     </div>
 
@@ -92,5 +101,8 @@ function shuffle(a) {
   }
   .answer > label{
     opacity: 1 !important;
+  }
+  .correct > label{
+    background-color: #48c774 !important;
   }
 </style>
