@@ -1,7 +1,7 @@
 <template>
   <div id="play" class="play container mt-6">
-    <GamePlay v-if="gameStarted" :settings="settings"></GamePlay>
-    <GameMenu v-else :categories="categories" v-on:play="startGame"></GameMenu>
+    <GamePlay @restart="restart" v-if="gameStarted" :settings="settings"></GamePlay>
+    <GameMenu v-else :categories="categories" @play="startGame"></GameMenu>
   </div>
 </template>
 
@@ -27,6 +27,10 @@ export default {
       this.settings = settings;
       console.log(settings);
       this.gameStarted = true;
+    },
+    restart(){
+      console.log("ok")
+      this.gameStarted = false;
     }
   },
   mounted() {
