@@ -5,7 +5,7 @@
       <div class="message-body">
         <p class="title" v-html="question.question"></p>
       </div>
-      <b-field grouped class="answers-wrap">
+      <b-field grouped group-multiline class="answers-wrap">
         <b-radio-button class="answer is-warning" :type="submitted && selectedAnswer === answer ? (answer === question.correct_answer ? 'is-success' : 'is-danger') : 'is-primary'" :disabled="submitted" expanded v-for="(answer, index) in answers" v-model="selectedAnswer" :native-value="answer" :key="answer">
           <b-icon type="is-primary" :icon="'numeric-' + (index + 1) +'-circle-outline'"></b-icon>
           <span v-html="answer"></span>
