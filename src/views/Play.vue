@@ -33,9 +33,17 @@ export default {
     }
   },
   mounted() {
-    fetch("https://opentdb.com/api_category.php")
-        .then(response => response.json())
-        .then(data => this.categories = data.trivia_categories);
+    if(this.$apiResources.categories){
+      this.categories = this.$apiResources.categories
+    } else{
+      fetch("https://opentdb.com/api_category.php")
+          .then(response => response.json())
+          .then(data => {
+            this.categories = data.trivia_categories;
+            this.$apiResources.categories = data.trivia_categories
+          });
+    }
+
   }
 }
 </script>

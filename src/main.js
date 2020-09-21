@@ -7,6 +7,10 @@ import 'buefy/dist/buefy.css'
 
 Vue.use(Buefy)
 
+Vue.prototype.$apiResources = {
+  categories: null
+}
+
 Vue.config.productionTip = false
 
 new Vue({
