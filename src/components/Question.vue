@@ -60,8 +60,9 @@ export default {
     this.timeRemaining = 100;
     this.intervalObj = setInterval(() => {
       if(this.timeRemaining > 0){
-        this.timeRemaining -= 0.25;
+        this.timeRemaining -= 0.10;
       } else{
+        this.timeRemaining = 0;
         clearInterval(this.intervalObj);
       }
     }, 10)
