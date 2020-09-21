@@ -1,28 +1,32 @@
 <template>
   <section>
-    <b-tag type="is-dark is-medium" class="mb-4">Points: {{Math.floor(points)}} ({{numCorrectAnswers}}/{{activeStep+1}})</b-tag>
-    <b-steps v-model="activeStep">
-      <hr style="margin-top: 0;"/>
-      <b-step-item :clickable="false" v-for="(question, index) in questions" :key="index" :step="index + 1">
-        <!-- Use v-if on question to prevent all questions from being loaded into the dom at the same time -->
-        <Question v-if="activeStep === index" :question="question" @submit="questionAnswered"></Question>
-      </b-step-item>
-      <template
-          slot="navigation"
-          slot-scope="{}">
-        <b-button
-            v-show="currentAnswered"
-            outlined
-            type="is-success"
-            icon-pack="mdi"
-            icon-right="forward"
-            :disabled="!currentAnswered"
-            @click.prevent="nextQuestion">
-          Next
-        </b-button>
-      </template>
-    </b-steps>
-    <GameResults @restart="$emit('restart')" v-if="finished" :num-of-correct="numCorrectAnswers" :answer-times="answerTimes" :points="Math.floor(points)" ></GameResults>
+
+    <div v-if="questions">
+      <b-tag type="is-dark is-medium" class="mb-4">Points: {{Math.floor(points)}} ({{numCorrectAnswers}}/{{activeStep+1}})</b-tag>
+      <b-steps v-model="activeStep">
+        <hr style="margin-top: 0;"/>
+        <b-step-item :clickable="false" v-for="(question, index) in questions" :key="index" :step="index + 1">
+          <!-- Use v-if on question to prevent all questions from being loaded into the dom at the same time -->
+          <Question v-if="activeStep === index" :question="question" @submit="questionAnswered"></Question>
+        </b-step-item>
+        <template
+            slot="navigation"
+            slot-scope="{}">
+          <b-button
+              v-show="currentAnswered"
+              outlined
+              type="is-success"
+              icon-pack="mdi"
+              icon-right="forward"
+              :disabled="!currentAnswered"
+              @click.prevent="nextQuestion">
+            Next
+          </b-button>
+        </template>
+      </b-steps>
+      <GameResults @restart="$emit('restart')" v-if="finished" :num-of-correct="numCorrectAnswers" :answer-times="answerTimes" :points="Math.floor(points)" ></GameResults>
+    </div>
+    <b-loading v-else is-full-page v-model="loading" :can-cancel="false"></b-loading>
   </section>
 </template>
 
@@ -37,7 +41,8 @@ export default {
   },
   data() {
     return {
-      questions: [],
+      loading: true,
+      questions: null,
       activeStep: 0,
       currentAnswered: false,
       points: 0,
@@ -63,11 +68,12 @@ export default {
       this.currentAnswered = true;
     }
   },
-  created() {
+  mounted() {
     fetch(`https://opentdb.com/api.php?amount=10&category=${this.settings.selectedCategory}&difficulty=${this.settings.selectedDifficulty}`)
         .then(response => response.json())
         .then(data => {
           this.questions = data.results;
+          this.loading = false
         });
   }
 }
